@@ -37,7 +37,9 @@ solh=numpy.zeros((nx,nt))
 #    solh[i,0]=numpy.sin(x[i])
 #    i+=1
 
-#solh[int(nx/2),0]=1
+solh[int(nx/2),0]=1
+
+#solh[:,0]=numpy.sin(x/2)
 
 
 print('Courant number: ', numpy.sqrt(g*H)*0.5*(dt/dx))
