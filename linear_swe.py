@@ -11,7 +11,7 @@ import math
 import matplotlib.pyplot as plt
 
 ##############
-# Global Variables
+# Global Variables.
 ##############
 
 PPI=math.pi

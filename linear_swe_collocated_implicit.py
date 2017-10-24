@@ -58,6 +58,7 @@ A=linalg.circulant(circ_vector) #circulant creates a Toeplitz matrix with main r
 ##############
 
 
+
 i=1
 while i<nt:
     hn=solh[0:nx,i-1]
