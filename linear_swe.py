@@ -41,9 +41,9 @@ print('Courant number: ', numpy.sqrt(g*H)*0.5*(dt/dx))
 
 
 
-#############
+##############
 # Core algorithm
-#############
+##############
 
 
 i=1

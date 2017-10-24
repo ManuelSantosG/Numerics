@@ -12,9 +12,9 @@ import matplotlib.pyplot as plt
 from scipy import linalg
 
 
-#############
+##############
 # Global Variables
-#############
+##############
 
 PPI=math.pi
 nt=40
