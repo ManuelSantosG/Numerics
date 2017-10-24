@@ -10,9 +10,9 @@ import numpy
 import math
 import matplotlib.pyplot as plt
 
-#############
+##############
 # Global Variables
-#############
+##############
 
 PPI=math.pi
 nt=60

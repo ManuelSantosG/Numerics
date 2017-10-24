@@ -53,9 +53,9 @@ circ_vector[nx-2]=0.25*c*c*g*H
 A=linalg.circulant(circ_vector) #circulant creates a Toeplitz matrix with main row circ_vector
 
 
-#############
+##############
 # Core algorithm, solution for h (only)
-#############
+##############
 
 
 i=1
