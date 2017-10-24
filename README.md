@@ -2,7 +2,7 @@
 MPE CDT Numerical Methods
 
 
-October 25 2017
+October 25 2017 (First submission)
 
 The file linear_swe contains the first method presented in the MPE book to solve the shallow water equations. The file linear_swe_collocated_implicite contains the code for the collocated implicit scheme given in page 312 of the MPE book. For the latter method, only a solution for h has been computed.
 
