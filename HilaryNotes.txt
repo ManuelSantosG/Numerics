@@ -1,0 +1,37 @@
+Hilary's comments on commit id 714f5b5
+
+Mark: 5/5
+You have received full marks for submitting code for comment and using git. 
+
+Good start solving the shallow water equations
+
+Some of feedback in the file genericFeedback.txt is relevant to you. Here are some comments that are specific to you. You will need to take this feedback into account for your final code submission in order to achieve a good mark.
+
+0. Good that you are making frequent commits with git
+
+1. You should have a .gitignore file
+
+2. Excellent README file
+
+3. There is lots of duplication between linear_swe_collocated_implicit.py and linear_swe.py. Look at my code at
+https://bitbucket.org/mpecdt/mpecdt/
+under
+source/hilary/code
+to see how you might re-structure
+
+4. Avoid global variables (see generic feedback)
+
+5. The Courant number is dimensionless and is not defined as:
+c=dt/dx
+
+6. Do not store the solutions from all times-steps. Store the final solution and summary statistics for every time-step.
+
+7. Use a for loop rather than a while loop for time-stepping and for looping over space.
+
+8. Why do you use variable names "solu" and "solh". Because they both start with "sol" they are difficult to distinguish. Could you just use h and u? It would make it easier to read.
+
+9. You have put the forcing onto u rather than h. Is this what you intended?
+
+10. You should try to avoid having commented out code. Either leave it in because it is useful and you will use it or remove it. You will always be able to get it back because you are using version control. You can put in a switch that calls the commented code depending on the value of an argument to the function.
+
+11. Your code needs more comments to describe what is happening in each block of code.
