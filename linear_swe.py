@@ -17,6 +17,9 @@ import matplotlib.pyplot as plt
 PPI=math.pi
 nt=60
 nx=60
+
+
+
 x=numpy.linspace(0,2*PPI,nx) #linspace creates nx points in between 0 and 2pi
 t=numpy.linspace(0,1,nt)
 
@@ -31,14 +34,6 @@ H=1
 #The matrices solu and solh store the solutions for u and h
 solu=numpy.zeros((nx,nt))
 solh=numpy.zeros((nx,nt))
-
-#Initial Condition (uncomment if no forcing is applied)
-#solh[int(nx/2),0]=1
-
-
-
-print('Courant number: ', numpy.sqrt(g*H)*0.5*(dt/dx))
-
 
 
 ##############
