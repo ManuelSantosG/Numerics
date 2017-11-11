@@ -21,15 +21,16 @@ c=0.1 #Courant number
 
 dt=c*dx #timestep
 
-t=numpy.arange(0,10000,10)
+#t=numpy.arange(0,10000,10)
+t = numpy.arange(0,100,1)
 t=dt*t
 nt=len(t)
 
 #initial conditions
-u=numpy.sin(numpy.sin(numpy.pi*x))
-uold=numpy.sin(numpy.sin(numpy.pi*x))
-h=numpy.sin(numpy.sin(numpy.pi*x))
-hold=numpy.sin(numpy.sin(numpy.pi*x))
+u = numpy.sin(2*numpy.pi*x)
+h = numpy.sin(2*numpy.pi*x)
+uold = u.copy()
+hold = h.copy()
 
 #Staggered algorithm, periodic BCs
 for i in range(1,nt-1):
@@ -49,6 +50,7 @@ for i in range(1,nt-1):
             h[j]=hold[j]-c*(u[j]-u[j-1])
     uold=u.copy()
     hold=h.copy()
-plt.plot(u)
-    
-    
+plt.plot(x, h, label='h')
+plt.plot(x, u, label='u')
+plt.legend()
+plt.show()
