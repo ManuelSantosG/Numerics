@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 
 
 #space grid
-nx=1000
+nx=100
 
 dx = 1./nx
 x = numpy.arange(0.,1.,dx)
@@ -32,7 +32,10 @@ nt=len(t)
 
 #u = (numpy.sin(numpy.pi*x))**2
 u=numpy.zeros(nx)
-h = numpy.sin(numpy.pi*x)
+h=numpy.zeros(nx)
+n1=math.floor(nx/4)
+n2=math.floor(3*nx/4)
+h[n1:n2] = numpy.sin(2*numpy.pi*(x[n1:n2]-0.25*numpy.ones(n2-n1)))**2
 #h=numpy.zeros(nx)
 #h[int(nx/2)]=1
 uold = u.copy()
@@ -47,7 +50,7 @@ plt.show()
 ##############
 # Core algorithm
 ##############
-
+p=1
 for i in range(0,nt):
     for j in range(1,nx-1):
         u[j]=uold[j]-0.5*c*(hold[j+1] - hold[j-1])
@@ -65,22 +68,28 @@ for i in range(0,nt):
     
     uold=u.copy()
     hold=h.copy()
-    
-    if i==math.floor(nt/3): #Plot of the solution half-way to the end
-        plt.plot(x, h, label='h(1/3)')
-        plt.plot(x, u, label='u(1/3)')
+    p+=1
+    if p==numpy.floor(nx/10):
+        plt.plot(x, h, label=str(numpy.round(dt*i,2)))
+        plt.plot(x, u, label=str(numpy.round(dt*i,2)))
         plt.legend()
         plt.show()
-    if i==int(nt/2): #Plot of the solution half-way to the end
-        plt.plot(x, h, label='h(1/2)')
-        plt.plot(x, u, label='u(1/2)')
-        plt.legend()
-        plt.show()
-    if i==math.floor(2*nt/3): #Plot of the solution half-way to the end
-        plt.plot(x, h, label='h(2/3)')
-        plt.plot(x, u, label='u(2/3)')
-        plt.legend()
-        plt.show()
+        p=1
+#    if i==math.floor(nt/3): #Plot of the solution half-way to the end
+#        plt.plot(x, h, label='h(1/3)')
+#        plt.plot(x, u, label='u(1/3)')
+#        plt.legend()
+#        plt.show()
+#    if i==int(nt/2): #Plot of the solution half-way to the end
+#        plt.plot(x, h, label='h(1/2)')
+#        plt.plot(x, u, label='u(1/2)')
+#        plt.legend()
+#        plt.show()
+#    if i==math.floor(2*nt/3): #Plot of the solution half-way to the end
+#        plt.plot(x, h, label='h(2/3)')
+#        plt.plot(x, u, label='u(2/3)')
+#        plt.legend()
+#        plt.show()
         
 plt.plot(x, h, label='h(1)')
 plt.plot(x, u, label='u(1)')
