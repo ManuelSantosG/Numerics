@@ -14,55 +14,49 @@ import matplotlib.pyplot as plt
 # Global Variables
 ##############
 
-PPI=math.pi
-nt=60
-nx=60
 
+#space grid
+nx=100
 
-
-x=numpy.linspace(0,2*PPI,nx) #linspace creates nx points in between 0 and 2pi
-t=numpy.linspace(0,1,nt)
-
-#Calculate timestep and space-step
-dt=t[1]-t[0]
-dx=x[1]-x[0]
-
-c=dt/dx #Courant number
+dx = 1./nx
+x = numpy.arange(0.,1.,dx)
+c=0.1 #Courant number
 g=1
 H=1
+dt=c*dx #timestep
 
-#The matrices solu and solh store the solutions for u and h
-solu=numpy.zeros((nx,nt))
-solh=numpy.zeros((nx,nt))
+#t=numpy.arange(0,10000,10)
+t = numpy.arange(0,100,1)
+t=dt*t
+nt=len(t)
+
+u = numpy.sin(numpy.pi*x)
+h = numpy.sin(numpy.pi*x)
+uold = u.copy()
+hold = h.copy()
+
+plt.plot(x, h, label='h0')
+plt.plot(xu, u, label='u0')
+plt.legend()
+plt.show()
 
 
 ##############
 # Core algorithm
 ##############
 
-
-i=1
-while i<nt:
-    j=1
-    while j<nx-2:
-       solu[j,i]=solu[j,i-1]-0.5*g*c*(solh[j+1,i-1]-solh[j-1,i-1])
-       j+=1
-       
-    j=1
-    while j<nx-2:
-        if j==nx/2: #This is the model for the forcing
-           solu[j,i]=solu[j,i-1]-0.5*g*c*(solh[j+1,i-1]-solh[j-1,i-1]) + numpy.sin(8*t[i-1])
+for i in range(1,nt):
+    for j in range(0,nx):
+        if j==0:
+            u[0]=uold[0]-0.5*c*(hold[1] - hold[nx-1])
+        if j==nx-1:
+            u[j]=uold[j]-0.5*c*(hold[0] - hold[j-1])
         else:
-            solu[j,i]=solu[j,i-1]-0.5*g*c*(solh[j+1,i-1]-solh[j-1,i-1])
-        solh[j,i]=solh[j,i-1]-0.5*H*c*(solu[j+1,i]-solu[j-1,i])
-        j+=1
-    
-    #Boundary Values: periodic boundary conditions.
-    solu[0,i]=solu[0,i-1]-0.5*c*g*(solh[1,i-1]-solh[nx-2,i-1])
-    solh[0,i]=solh[0,i-1]-0.5*c*H*(solu[1,i]-solu[nx-2,i])
-    solu[nx-1,i]=solu[0,i]
-    solh[nx-1,i]=solh[0,i]
-    i+=1
-
-#Solution at time 1/2
-plt.plot(solh[:,int(nt/2)])
+            u[j]=uold[j]-0.5*c*(hold[j+1] - hold[j-1])
+    for j in range(0,nx):
+        if j==0:
+            h[0]=hold[0]-0.5*c*(u[1]-u[nx-1])
+        if j==nx-1:
+            h[j]=hold[j]-0.5*c*(u[0]-u[j-1])
+        else:
+            h[j]=hold[j]-0.5*c*(u[j+1]-u[j-1])

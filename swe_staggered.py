@@ -12,11 +12,11 @@ import matplotlib.pyplot as plt
 from scipy import linalg
 
 #space grid
-nx=1000
+nx=10
 
 dx = 1./nx
 x = numpy.arange(0.,1.,dx)
-xu= x + dx*numpy.ones(len(x))
+xu= x + 0.5*dx*numpy.ones(len(x))
 c=0.1 #Courant number
 
 dt=c*dx #timestep
@@ -31,6 +31,11 @@ u = numpy.sin(numpy.pi*xu)
 h = numpy.sin(numpy.pi*x)
 uold = u.copy()
 hold = h.copy()
+
+plt.plot(x, h, label='h0')
+plt.plot(xu, u, label='u0')
+plt.legend()
+plt.show()
 
 #Staggered algorithm, periodic BCs
 for i in range(1,nt):
@@ -47,6 +52,7 @@ for i in range(1,nt):
         h[j]=hold[j]-c*(u[j]-u[(j-1)%nx])
     uold=u.copy()
     hold=h.copy()
+    
 plt.plot(x, h, label='h')
 plt.plot(x, u, label='u')
 plt.legend()
