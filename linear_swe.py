@@ -44,6 +44,7 @@ hold = h.copy()
 plt.plot(x, h, label='h0')
 plt.plot(x, u, label='u0')
 plt.legend()
+plt.savefig('STuh0.png')
 plt.show()
 
 
@@ -69,29 +70,16 @@ for i in range(0,nt):
     uold=u.copy()
     hold=h.copy()
     p+=1
-    if p==numpy.floor(nx/10):
-        plt.plot(x, h, label=str(numpy.round(dt*i,2)))
-        plt.plot(x, u, label=str(numpy.round(dt*i,2)))
-        plt.legend()
-        plt.show()
-        p=1
-#    if i==math.floor(nt/3): #Plot of the solution half-way to the end
-#        plt.plot(x, h, label='h(1/3)')
-#        plt.plot(x, u, label='u(1/3)')
+#    if p==numpy.floor(nt/4):
+#        plt.plot(x, h, label=str(numpy.round(dt*i,2)))
+#        plt.plot(x, u, label=str(numpy.round(dt*i,2)))
 #        plt.legend()
+#        plt.savefig('STuh'+str(dt*i)+'.png')
 #        plt.show()
-#    if i==int(nt/2): #Plot of the solution half-way to the end
-#        plt.plot(x, h, label='h(1/2)')
-#        plt.plot(x, u, label='u(1/2)')
-#        plt.legend()
-#        plt.show()
-#    if i==math.floor(2*nt/3): #Plot of the solution half-way to the end
-#        plt.plot(x, h, label='h(2/3)')
-#        plt.plot(x, u, label='u(2/3)')
-#        plt.legend()
-#        plt.show()
-        
-plt.plot(x, h, label='h(1)')
-plt.plot(x, u, label='u(1)')
-plt.legend()
-plt.show()
+#        p=1
+#        
+#plt.plot(x, h, label='h(1)')
+#plt.plot(x, u, label='u(1)')
+#plt.legend()
+#plt.savefig('STuh1.png')
+#fg=plt.show()
