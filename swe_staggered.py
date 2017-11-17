@@ -22,13 +22,20 @@ c=0.1 #Courant number
 dt=c*dx #timestep
 
 #t=numpy.arange(0,10000,10)
-t = numpy.arange(0,100,1)
-t=dt*t
+#t = numpy.arange(0,100,0.5)
+#t=dt*t
+Tmax=2*numpy.pi
+t=numpy.arange(0,Tmax,dt)
 nt=len(t)
 
 #initial conditions
-u = numpy.sin(numpy.pi*xu)
-h = numpy.sin(numpy.pi*x)
+u=numpy.zeros(nx)
+h=numpy.zeros(nx)
+n1=math.floor(nx/4)
+n2=math.floor(3*nx/4)
+h[n1:n2] = numpy.sin(2*numpy.pi*(x[n1:n2]-0.25*numpy.ones(n2-n1)))**2
+#h=numpy.zeros(nx)
+#h[int(nx/2)]=1
 uold = u.copy()
 hold = h.copy()
 
@@ -53,7 +60,7 @@ for i in range(1,nt):
     uold=u.copy()
     hold=h.copy()
     
-plt.plot(x, h, label='h')
-plt.plot(x, u, label='u')
-plt.legend()
-plt.show()
+    plt.plot(x, h, label='h')
+    plt.plot(x, u, label='u')
+    plt.legend()
+    plt.show()
