@@ -16,30 +16,38 @@ from scipy import linalg
 # Global Variables
 ##############
 
-PPI=math.pi
-nt=40
-nx=10
-x=numpy.linspace(0,2*PPI,nx+1)
-t=numpy.linspace(0,10,nt)
+#space grid
+nx=100
 
-
-#Calculate timestep and space-step
-dt=t[1]-t[0]
-dx=x[1]-x[0]
-
-c=dt/dx #Courant number
+dx = 1./nx
+x = numpy.arange(0.,1.,dx)
+c=0.1 #Courant number
 g=1
 H=1
+dt=c*dx #timestep
+
+#t=numpy.arange(0,10000,10)
+t = numpy.arange(0.,1.,dt)
+nt=len(t)
+
+#u = (numpy.sin(numpy.pi*x))**2
+u=numpy.zeros(nx)
+h=numpy.zeros(nx)
+n1=math.floor(nx/4)
+n2=math.floor(3*nx/4)
+h[n1:n2] = numpy.sin(2*numpy.pi*(x[n1:n2]-0.25*numpy.ones(n2-n1)))**2
+#h=numpy.zeros(nx)
+#h[int(nx/2)]=1
+uold = u.copy()
+hold = h.copy()
 
 
+plt.plot(x, h, label='h0')
+plt.plot(x, u, label='u0')
+plt.legend()
+plt.savefig('STuh0.png')
+plt.show()
 
-#The matrices solu and solh store the solutions for u and h
-solu=numpy.zeros((nx+1,nt))
-solh=numpy.zeros((nx+1,nt))
-
-
-#Initial Conditions
-solh[0:nx,0]=numpy.sin(x[0:nx]/2)
 
 
 
