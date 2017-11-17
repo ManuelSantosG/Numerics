@@ -42,11 +42,11 @@ uold = u.copy()
 hold = h.copy()
 
 
-#plt.plot(x, h, label='h0')
-#plt.plot(x, u, label='u0')
-#plt.legend()
+plt.plot(x, h, label='h0')
+plt.plot(x, u, label='u0')
+plt.legend()
 #plt.savefig('STuh0.png')
-#plt.show()
+plt.show()
 
 
 
@@ -66,24 +66,50 @@ A=linalg.circulant(circ_vector) #circulant creates a Toeplitz matrix with main r
 ##############
 
 
-
-for i in range(1,nx):
-    hn=hold.copy()
+p=1
+for i in range(1,nt):
+    un=uold.copy()
     b=numpy.zeros(nx)
     for j in range(1,nx-1):
         b[j]=c*0.5*(hold[j+1]-hold[j-1])
     b[0]=c*0.5*(hold[1]-hold[nx-1])
     b[nx-1]=c*0.5*(hold[0]-hold[nx-2])
-    eqb=hn-b
+    eqb=un-b
+    u=numpy.linalg.solve(A,eqb)
+    
 
-
-
-#Uncomment the following to see the sequence of solutions at each timestep    
-#i=0
-#plt.hold(True)
-#while i<nt:
-#    plt.plot(solh[:,i])
-#    i+=1
+    
+    for j in range(1,nx-1):
+        h[j]=hold[j]-0.5*c*(u[j+1]-u[j-1])
+    #Boundary values of h
+    h[0]=hold[0]-0.5*c*(u[1]-u[nx-1])
+    h[nx-1]=hold[nx-1]-0.5*c*(u[0]-u[nx-2])
+    
+    p+=1
+    if p==numpy.floor(nt/4):
+        plt.plot(x, h, label=str(numpy.round(dt*i,2)))
+        plt.plot(x, u, label=str(numpy.round(dt*i,2)))
+        plt.legend()
+        #plt.savefig('STuh'+str(dt*i)+'.png')
+        plt.show()
+        p=1
+    
+    
+    hold=h.copy()
+    uold=u.copy()
+    
+#    plt.plot(x, h, label='h')
+#    plt.plot(x, u, label='u')
+#    plt.legend()
+#    #plt.savefig('STuh0.png')
+#    plt.show()
+    
+    
+plt.plot(x, h, label='h=1')
+plt.plot(x, u, label='u=1')
+plt.legend()
+#plt.savefig('STuh0.png')
+plt.show()
     
     
     
