@@ -42,11 +42,11 @@ uold = u.copy()
 hold = h.copy()
 
 
-plt.plot(x, h, label='h0')
-plt.plot(x, u, label='u0')
-plt.legend()
-plt.savefig('STuh0.png')
-plt.show()
+#plt.plot(x, h, label='h0')
+#plt.plot(x, u, label='u0')
+#plt.legend()
+#plt.savefig('STuh0.png')
+#plt.show()
 
 
 
@@ -54,8 +54,8 @@ plt.show()
 #circ_vector is the vector that will generate the Toeplitz matrix
 circ_vector=numpy.zeros(nx)
 circ_vector[0]=1
-circ_vector[2]=-0.25*c*c*g*H
-circ_vector[nx-2]=0.25*c*c*g*H
+circ_vector[2]=0.25*c*c*g*H
+circ_vector[nx-2]=-0.25*c*c*g*H
 
 
 A=linalg.circulant(circ_vector) #circulant creates a Toeplitz matrix with main row circ_vector
@@ -67,19 +67,15 @@ A=linalg.circulant(circ_vector) #circulant creates a Toeplitz matrix with main r
 
 
 
-i=1
-while i<nt:
-    hn=solh[0:nx,i-1]
+for i in range(1,nx):
+    hn=hold.copy()
     b=numpy.zeros(nx)
-    b[0:nx-1]=-0.5*c*H*solu[1:nx,i-1]-0.5*c*H*solu[0:nx-1,i-1]
-    b[nx-1]=-0.5*c*H*solu[0,i-1]-0.5*c*H*solu[nx-1,i-1]
-    eqb=hn+b
-    solh[0:nx,i]=numpy.linalg.solve(A,eqb)
-    print('hn: ',hn)
-    print('b: ',b)
-    print('eqb: ',eqb)
-    solh[nx,i]=solh[0,i]
-    i+=1
+    for j in range(1,nx-1):
+        b[j]=c*0.5*(hold[j+1]-hold[j-1])
+    b[0]=c*0.5*(hold[1]-hold[nx-1])
+    b[nx-1]=c*0.5*(hold[0]-hold[nx-2])
+    eqb=hn-b
+
 
 
 #Uncomment the following to see the sequence of solutions at each timestep    
