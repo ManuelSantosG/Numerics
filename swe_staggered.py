@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from scipy import linalg
 
 #space grid
-nx=10
+nx=100
 
 dx = 1./nx
 x = numpy.arange(0.,1.,dx)
@@ -45,6 +45,7 @@ plt.legend()
 plt.show()
 
 #Staggered algorithm, periodic BCs
+p=1
 for i in range(1,nt):
     #We first iterate to compute the new values of u, which depend only on old values of h.
     for j in range(0,nx):
@@ -60,7 +61,16 @@ for i in range(1,nt):
     uold=u.copy()
     hold=h.copy()
     
-    plt.plot(x, h, label='h')
-    plt.plot(x, u, label='u')
-    plt.legend()
-    plt.show()
+    p+=1
+    if p==numpy.floor(nt/4):
+        plt.plot(x, h, label=str(numpy.round(dt*i,2)))
+        plt.plot(x, u, label=str(numpy.round(dt*i,2)))
+        plt.legend()
+        #plt.savefig('STuh'+str(dt*i)+'.png')
+        plt.show()
+        p=1
+    
+plt.plot(x, h, label='h')
+plt.plot(x, u, label='u')
+plt.legend()
+plt.show()
