@@ -28,10 +28,14 @@ c=0.1
 T=1
 dt=c*dx
 
-#u=numpy.sin(numpy.pi*xmid)**2
+n1=math.floor(nx/4)
+n2=math.floor(3*nx/4)
+h=numpy.zeros(nx)
+h[n1:n2] = numpy.sin(2*numpy.pi*(x[n1:n2]-0.25*numpy.ones(n2-n1)))**2
 u=numpy.zeros(100)
-u[25:75]=numpy.ones(50)
-h=numpy.zeros(100)
+#u[25:75]=numpy.ones(50)
+#h=numpy.zeros(100)
+
 uold=u.copy()
 hold=h.copy()
 plt.plot(xmid,u)
@@ -48,7 +52,8 @@ while t<T:
     hb[1:nx+1]=hold
 
     
-    Fh=0.5*(hb[1:nx+2] + hb[0:nx+1])-0.5*(hb[1:nx+2]-hb[0:nx+1])
+#    Fh=0.5*(hb[1:nx+2] + hb[0:nx+1])-0.5*(hb[1:nx+2]-hb[0:nx+1])
+    Fh=hb[0:nx+1]
     Rh=Fh[1:nx+1]-Fh[0:nx]
     
     u=uold-c*Rh
@@ -59,22 +64,26 @@ while t<T:
     ub[nx+1]=uold[0]
     ub[1:nx+1]=uold
     
-    Fu=0.5*(ub[1:nx+2] + ub[0:nx+1])-0.5*(ub[1:nx+2]-ub[0:nx+1])
+#    Fu=0.5*(ub[1:nx+2] + ub[0:nx+1])-0.5*(ub[1:nx+2]-ub[0:nx+1])
+    Fu=ub[0:nx+1]
     Ru=Fu[1:nx+1]-Fu[0:nx]
     
     h=hold-c*Ru
     hold=h.copy()
+#    
+#    plt.plot(xmid,u)
+#    plt.plot(xmid,h)
+#    plt.show()
     
-    plt.plot(xmid,u)
-    plt.plot(xmid,h)
-    plt.show()
-    
-#    p+=1
-#    if p==numpy.floor((1/dt)/4):
-#        plt.plot(xmid, u,label='u')
-#        plt.legend()
-#        #plt.savefig('STuh'+str(dt*i)+'.png')
-#        plt.show()
-#        p=1
+    p+=1
+    if p==numpy.floor((1/dt)/4):
+        plt.plot(xmid, u,label='u')
+        plt.legend()
+        #plt.savefig('STuh'+str(dt*i)+'.png')
+        plt.show()
+        p=1
     
     t+=dt
+plt.plot(xmid,u)
+plt.plot(xmid,h)
+plt.show()
