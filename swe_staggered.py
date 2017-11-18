@@ -34,7 +34,7 @@ h=numpy.zeros(nx)
 n1=math.floor(nx/4)
 n2=math.floor(3*nx/4)
 h[n1:n2] = numpy.sin(2*numpy.pi*(x[n1:n2]-0.25*numpy.ones(n2-n1)))**2
-#h=numpy.zeros(nx)
+h[n1:n2] = numpy.ones(n2-n1)
 #h[int(nx/2)]=1
 uold = u.copy()
 hold = h.copy()
@@ -63,8 +63,8 @@ for i in range(1,nt):
     
     p+=1
     if p==numpy.floor(nt/4):
-        plt.plot(x, h, label=str(numpy.round(dt*i,2)))
-        plt.plot(x, u, label=str(numpy.round(dt*i,2)))
+        plt.plot(x, h, label='h'+str(numpy.round(dt*i,2)))
+        plt.plot(x, u, label='u'+str(numpy.round(dt*i,2)))
         plt.legend()
         #plt.savefig('STuh'+str(dt*i)+'.png')
         plt.show()
