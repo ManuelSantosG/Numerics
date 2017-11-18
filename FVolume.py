@@ -31,25 +31,42 @@ dt=c*dx
 #u=numpy.sin(numpy.pi*xmid)**2
 u=numpy.zeros(100)
 u[25:75]=numpy.ones(50)
+h=numpy.zeros(100)
 uold=u.copy()
+hold=h.copy()
 plt.plot(xmid,u)
+plt.plot(xmid,h)
 plt.show()
 t=dt
 
 p=1
 while t<T:
+
+    hb=numpy.zeros(nx+2)
+    hb[0]=hold[nx-1]
+    hb[nx+1]=hold[0]
+    hb[1:nx+1]=hold
+
+    
+    Fh=0.5*(hb[1:nx+2] + hb[0:nx+1])-0.5*(hb[1:nx+2]-hb[0:nx+1])
+    Rh=Fh[1:nx+1]-Fh[0:nx]
+    
+    u=uold-c*Rh
+    uold=u.copy()
+    
     ub=numpy.zeros(nx+2)
     ub[0]=uold[nx-1]
     ub[nx+1]=uold[0]
     ub[1:nx+1]=uold
-    F=0.5*(ub[1:nx+2] + ub[0:nx+1])-0.5*(ub[1:nx+2]-ub[0:nx+1])
-    R=F[1:nx+1]-F[0:nx]
     
-    u=uold-c*R
+    Fu=0.5*(ub[1:nx+2] + ub[0:nx+1])-0.5*(ub[1:nx+2]-ub[0:nx+1])
+    Ru=Fu[1:nx+1]-Fu[0:nx]
     
-    uold=u.copy()
+    h=hold-c*Ru
+    hold=h.copy()
     
     plt.plot(xmid,u)
+    plt.plot(xmid,h)
     plt.show()
     
 #    p+=1
