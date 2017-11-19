@@ -44,8 +44,9 @@ hold=h.copy()
 
 
 
-plt.plot(xmid,u)
-plt.plot(xmid,h)
+plt.plot(xmid,u,label='u')
+plt.plot(xmid,h,label='h')
+plt.legend()
 plt.show()
 
 
@@ -54,6 +55,7 @@ t=dt #Initialise first step
 p=1 #This is parameter to get figures, is not relevant for the method
 
 #Core algorithm. Periodic Boundary Conditions
+#Loop over all timesteps
 while t<T:
     
     #hb is a [nx+2]-length vector that takes into account the periodicity of the grid
