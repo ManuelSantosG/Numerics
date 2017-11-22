@@ -34,7 +34,10 @@ h=numpy.zeros(nx)
 n1=math.floor(nx/4)
 n2=math.floor(3*nx/4)
 h[n1:n2] = numpy.sin(2*numpy.pi*(x[n1:n2]-0.25*numpy.ones(n2-n1)))**2
-h[n1:n2] = numpy.ones(n2-n1)
+
+#Square wave
+#h[n1:n2] =numpy.ones(n2-n1)
+
 #h[int(nx/2)]=1
 uold = u.copy()
 hold = h.copy()
