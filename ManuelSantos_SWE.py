@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 
 
 ppi=np.pi
-nx=10
+nx=100
 dx = 1./nx
 x = np.arange(0.,1.,dx)
     
@@ -64,7 +64,10 @@ hold=initialcondition(3)
 h=hold.copy()
 
 
-def collocated_explicit(hold,c,T):
+def collocated_explicit(hold,c,T=1):
+    
+    
+    
     uold=np.zeros(nx)
     u=uold.copy()
     dt=c*dx
@@ -90,7 +93,7 @@ def collocated_explicit(hold,c,T):
         uold=u.copy()
         hold=h.copy()
         p+=1
-        if p==numpy.floor(nt/4):
+        if p==np.floor(nt/4):
             plt.plot(x, h, label=str(np.round(dt*i,2)))
             plt.plot(x, u, label=str(np.round(dt*i,2)))
             plt.legend()
@@ -103,7 +106,100 @@ def collocated_explicit(hold,c,T):
     fg=plt.show()
     
     
-
+def collocated_implicit(hold,c,T=1):
+    
+    uold=np.zeros(nx)
+    u=uold.copy()
+    dt=c*dx
+    t = np.arange(0.,T,dt)
+    nt=len(t)
+    
+    
+    #circ_vector is the vector that will generate the Toeplitz matrix
+    circ_vector=np.zeros(nx)
+    circ_vector[0]=1
+    circ_vector[2]=0.25*c*c
+    circ_vector[nx-2]=-0.25*c*c
+    
+    
+    A=linalg.circulant(circ_vector) #circulant creates a Toeplitz matrix with main row circ_vector
+    
+    
+    p=1
+    for i in range(1,nt):
+        un=uold.copy()
+        b=np.zeros(nx)
+        for j in range(1,nx-1):
+            b[j]=c*0.5*(hold[j+1]-hold[j-1])
+        b[0]=c*0.5*(hold[1]-hold[nx-1])
+        b[nx-1]=c*0.5*(hold[0]-hold[nx-2])
+        eqb=un-b
+        u=np.linalg.solve(A,eqb)
+        
+    
+        
+        for j in range(1,nx-1):
+            h[j]=hold[j]-0.5*c*(u[j+1]-u[j-1])
+        #Boundary values of h
+        h[0]=hold[0]-0.5*c*(u[1]-u[nx-1])
+        h[nx-1]=hold[nx-1]-0.5*c*(u[0]-u[nx-2])
+        
+        p+=1
+        if p==np.floor(nt/4):
+            plt.plot(x, h, label=str(np.round(dt*i,2)))
+            plt.plot(x, u, label=str(np.round(dt*i,2)))
+            plt.legend()
+            #plt.savefig('STuh'+str(dt*i)+'.png')
+            plt.show()
+            p=1
+        
+        
+        hold=h.copy()
+        uold=u.copy()
+        
+        
+    plt.plot(x, h, label='h=1')
+    plt.plot(x, u, label='u=1')
+    plt.legend()
+    plt.show()
+    
+def staggeredgrid(hold,c,T=1):
+    
+    uold=np.zeros(nx)
+    u=uold.copy()
+    dt=c*dx
+    t = np.arange(0.,T,dt)
+    nt=len(t)
+    
+    
+    p=1
+    for i in range(1,nt):
+        #We first iterate to compute the new values of u, which depend only on old values of h.
+        for j in range(0,nx):
+            #u[0] is the value of u_{1/2}^{j} and so on...
+            #The only point of conflict is the end of the interval, whose value depends on hold[nx]=hold[0]
+            if j==nx-1:
+                u[j]=uold[j]-c*(hold[0]-hold[j])
+            else:
+                u[j]=uold[j]-c*(hold[j+1]-hold[j])
+        for j in range(0,nx):
+            #The only point of conflict is at the beggining of the interval, whose value depends on u[-1/2]=u[nx-1]
+            h[j]=hold[j]-c*(u[j]-u[(j-1)%nx])
+        uold=u.copy()
+        hold=h.copy()
+        
+        p+=1
+        if p==np.floor(nt/4):
+            plt.plot(x, h, label='h'+str(np.round(dt*i,2)))
+            plt.plot(x, u, label='u'+str(np.round(dt*i,2)))
+            plt.legend()
+            plt.show()
+            p=1
+    
+    plt.plot(x, h, label='h')
+    plt.plot(x, u, label='u')
+    plt.legend()
+    plt.show()
         
         
         
