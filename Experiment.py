@@ -8,8 +8,14 @@ Created on Tue Nov 14 16:45:41 2017
 import numpy
 import math
 import matplotlib.pyplot as plt
+import ManuelSantos_SWE as ms
 
+hold=ms.initialcondition(3)
+h=hold.copy()
 
+x = np.arange(0.,1.,dx)
+
+ms.collocated_explicit(hold,0.1,1)
 
 def analytic_sqsin(x,t,m):
     for i in range(0,nt):
