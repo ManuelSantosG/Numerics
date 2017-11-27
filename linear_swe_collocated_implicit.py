@@ -17,7 +17,7 @@ from scipy import linalg
 ##############
 
 #space grid
-nx=100
+nx=10
 
 dx = 1./nx
 x = numpy.arange(0.,1.,dx)
@@ -35,8 +35,12 @@ u=numpy.zeros(nx)
 h=numpy.zeros(nx)
 n1=math.floor(nx/4)
 n2=math.floor(3*nx/4)
-h[n1:n2] = numpy.sin(2*numpy.pi*(x[n1:n2]-0.25*numpy.ones(n2-n1)))**2
-h[n1:n2] =numpy.ones(n2-n1)
+#h[n1:n2] = numpy.sin(2*numpy.pi*(x[n1:n2]-0.25*numpy.ones(n2-n1)))**2
+#h[n1:n2] =numpy.ones(n2-n1)
+
+#h=(numpy.sin(numpy.pi*x))**2
+h=numpy.cos(numpy.pi*x)
+
 #h=numpy.zeros(nx)
 #h[int(nx/2)]=1
 uold = u.copy()
@@ -48,14 +52,6 @@ plt.plot(x, u, label='u0')
 plt.legend()
 #plt.savefig('STuh0.png')
 plt.show()
-
-
-def asolution(space_iteration,time_iteration):
-    m1=(n1+time_iteration)%nx
-    m2=(m1+25)%nx
-    
-
-
 
 
 #circ_vector is the vector that will generate the Toeplitz matrix
@@ -92,14 +88,14 @@ for i in range(1,nt):
     h[0]=hold[0]-0.5*c*(u[1]-u[nx-1])
     h[nx-1]=hold[nx-1]-0.5*c*(u[0]-u[nx-2])
     
-    p+=1
-    if p==numpy.floor(nt/4):
-        plt.plot(x, h, label=str(numpy.round(dt*i,2)))
-        plt.plot(x, u, label=str(numpy.round(dt*i,2)))
-        plt.legend()
-        #plt.savefig('STuh'+str(dt*i)+'.png')
-        plt.show()
-        p=1
+#    p+=1
+#    if p==numpy.floor(nt/4):
+#        plt.plot(x, h, label=str(numpy.round(dt*i,2)))
+#        plt.plot(x, u, label=str(numpy.round(dt*i,2)))
+#        plt.legend()
+#        #plt.savefig('STuh'+str(dt*i)+'.png')
+#        plt.show()
+#        p=1
     
     
     hold=h.copy()
@@ -112,11 +108,11 @@ for i in range(1,nt):
 #    plt.show()
     
     
-plt.plot(x, h, label='h=1')
-plt.plot(x, u, label='u=1')
-plt.legend()
-#plt.savefig('STuh0.png')
-plt.show()
+#plt.plot(x, h, label='h=1')
+#plt.plot(x, u, label='u=1')
+#plt.legend()
+##plt.savefig('STuh0.png')
+#plt.show()
     
     
     

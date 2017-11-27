@@ -12,15 +12,15 @@ import matplotlib.pyplot as plt
 nx=100
 nt=nx
 x=numpy.linspace(0,1,nx)
-x=numpy.pi*x
 t=numpy.linspace(0,1,nt)
+ppi=numpy.pi
 
 
 for i in range(0,nt):
-    h=0.5*numpy.sin(x-t[i]*numpy.ones(nx)) + 0.5*numpy.sin(x+t[i]*numpy.ones(nx))
-    u=0.5*numpy.sin(x+t[i]*numpy.ones(nx)) - 0.5*numpy.sin(x-t[i]*numpy.ones(nx))
-
-    plt.plot(x, h, label='h')
-    plt.plot(x, u, label='u')
+    hsol=0.5*(numpy.sin(ppi*x - ppi*t[i])**2) + 0.5*(numpy.sin(ppi*x + ppi*t[i])**2)
+    usol=0.5*(numpy.sin(ppi*x - ppi*t[i])**2) - 0.5*(numpy.sin(ppi*x + ppi*t[i])**2)
+    plt.plot(x,usol,label='u')
+    plt.plot(x,hsol,label='h')
     plt.legend()
     plt.show()
+    

@@ -35,7 +35,9 @@ u=numpy.zeros(nx)
 h=numpy.zeros(nx)
 n1=math.floor(nx/4)
 n2=math.floor(3*nx/4)
-h[n1:n2] = numpy.sin(2*numpy.pi*(x[n1:n2]-0.25*numpy.ones(n2-n1)))**2
+#h[n1:n2] = numpy.sin(2*numpy.pi*(x[n1:n2]-0.25*numpy.ones(n2-n1)))**2
+#u = numpy.cos(numpy.pi*x-numpy.pi/2)**2
+h = numpy.sin(numpy.pi*x)**2
 #h=numpy.zeros(nx)
 #h[int(nx/2)]=1
 uold = u.copy()
@@ -44,7 +46,7 @@ hold = h.copy()
 plt.plot(x, h, label='h0')
 plt.plot(x, u, label='u0')
 plt.legend()
-plt.savefig('STuh0.png')
+#plt.savefig('STuh0.png')
 plt.show()
 
 
@@ -71,15 +73,15 @@ for i in range(0,nt):
     hold=h.copy()
     p+=1
 #    if p==numpy.floor(nt/4):
-#        plt.plot(x, h, label=str(numpy.round(dt*i,2)))
-#        plt.plot(x, u, label=str(numpy.round(dt*i,2)))
-#        plt.legend()
+    plt.plot(x, h, label=str(numpy.round(dt*i,2)))
+    plt.plot(x, u, label=str(numpy.round(dt*i,2)))
+    plt.legend()
 #        plt.savefig('STuh'+str(dt*i)+'.png')
-#        plt.show()
-#        p=1
-#        
-#plt.plot(x, h, label='h(1)')
-#plt.plot(x, u, label='u(1)')
-#plt.legend()
+    plt.show()
+    p=1
+        
+plt.plot(x, h, label='h(1)')
+plt.plot(x, u, label='u(1)')
+plt.legend()
 #plt.savefig('STuh1.png')
-#fg=plt.show()
+fg=plt.show()
