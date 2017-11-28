@@ -24,6 +24,8 @@ def staggeredgrid(hold,x,dx,c,T=1):
     nt=len(t)
     
     errorh=np.zeros(nt)
+    Masst=np.zeros(nt)
+    Masst[0]=of.Mass(hold,dx)
     
     p=1
     for i in range(1,nt):
@@ -53,6 +55,9 @@ def staggeredgrid(hold,x,dx,c,T=1):
         analytic_h=ex.analytic_sqsin(x,t[i])
         errorh[i]=of.l2ErrorNorm(h,analytic_h)
         
+    #    Conservation of mass   
+        Masst[i]=of.Mass(u,dx)+of.Mass(h,dx)
+        
     
     plt.plot(x, h, label='h(x,1)')
     plt.plot(x, u, label='u(x,1)')
@@ -60,5 +65,7 @@ def staggeredgrid(hold,x,dx,c,T=1):
     plt.show()
     
     plt.plot(t,errorh,label='Error')
+    plt.show()
     
-    
+    plt.plot(t,Masst,label='Mass')
+    plt.show()

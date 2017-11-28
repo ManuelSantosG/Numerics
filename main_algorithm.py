@@ -34,7 +34,7 @@ def maincode(Courant):
     
     
     co.collocated_explicit(hold,x,dx,Courant,1)
-#    im.collocated_implicit(hold,x,dx,Courant,1)
-#    st.staggeredgrid(hold,x,dx,Courant,1)
+    im.collocated_implicit(hold,x,dx,Courant,1)
+    st.staggeredgrid(hold,x,dx,Courant,1)
     
     

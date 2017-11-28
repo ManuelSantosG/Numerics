@@ -24,6 +24,8 @@ def collocated_implicit(hold,x,dx,c,T=1):
     nt=len(t)
     
     errorh=np.zeros(nt)
+    Masst=np.zeros(nt)
+    Masst[0]=of.Mass(hold,dx)
     
     #circ_vector is the vector that will generate the Toeplitz matrix
     circ_vector=np.zeros(nx)
@@ -71,6 +73,9 @@ def collocated_implicit(hold,x,dx,c,T=1):
         analytic_h=ex.analytic_sqsin(x,t[i])
         errorh[i]=of.l2ErrorNorm(h,analytic_h)
         
+    #    Conservation of mass
+        Masst[i]=of.Mass(u,dx)+of.Mass(h,dx)
+        
         
     plt.plot(x, h, label='h=1')
     plt.plot(x, u, label='u=1')
@@ -78,3 +83,7 @@ def collocated_implicit(hold,x,dx,c,T=1):
     plt.show()
     
     plt.plot(t,errorh,label='Error')
+    plt.show()
+    
+    plt.plot(t,Masst,label='Mass')
+    plt.show()

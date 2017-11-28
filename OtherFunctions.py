@@ -24,3 +24,12 @@ def lInfErrorNorm(phi, phiExact):
     "to phiExact"
     phiError = phi - phiExact
     return np.max(np.abs(phiError))/np.max(np.abs(phiExact))
+
+
+def Mass(phi,dx):
+    "Approximate the integral of some function in a discretised domain of"
+    "mesh size dx using a simple quadrature formula"
+    nx=len(phi)
+    Int=sum(dx*phi)-dx*phi[nx-1]
+    return Int
+    

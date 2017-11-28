@@ -22,8 +22,11 @@ def collocated_explicit(hold,x,dx,c,T=1):
     dt=c*dx
     t = np.arange(0.,T,dt)
     nt=len(t)
+    InitialMass=of.Mass(hold,dx)
+    
     
     errorh=np.zeros(nt)
+    Masst=np.zeros(nt)
     
     p=1
     for i in range(0,nt):
@@ -56,6 +59,9 @@ def collocated_explicit(hold,x,dx,c,T=1):
         analytic_h=ex.analytic_sqsin(x,t[i])
         errorh[i]=of.l2ErrorNorm(h,analytic_h)
         
+        #    Conservation of mass   
+        Masst[i]=of.Mass(u,dx)+of.Mass(h,dx)
+        
         
     plt.plot(x, h, label='h(1)')
     plt.plot(x, u, label='u(1)')
@@ -63,3 +69,7 @@ def collocated_explicit(hold,x,dx,c,T=1):
     plt.show()
     
     plt.plot(t,errorh,label='Error')
+    plt.show()
+    
+    plt.plot(t,Masst,label='Mass')
+    plt.show()
