@@ -17,25 +17,33 @@ import OtherFunctions as of
 import Experiment as ex
 
 
-def maincode(Courant):
+def maincode(nx,Courant):
+    "maincode() runs different methods to solve the Shallow Water Equations"
+    "(SWE). This function is fed with a number of nodes, nx, and a Courant number"
+    " and creates an initial condition for the problem."
     
-    ppi=np.pi
-    nx=100
-    dx = 1./nx
-    x = np.arange(0.,1.,dx)
+    
+    dx = 1./nx #Define space-step.
+    x = np.arange(0.,1.,dx) #Define space grid.
     
     hold=ic.initialcondition(x,3)
     h=hold.copy()
     
+    
+    #Plot intial condition
     plt.plot(x,h,label='h(x,0)')
     plt.plot(x,np.zeros(nx),label='u(x,0)')
     plt.title('Initial Conditions')
     plt.legend()
     plt.show()
     
-    
+    #Solve SWE using a Collocated Explicit method
     co.collocated_explicit(hold,x,dx,Courant,1)
+    
+    #Solve SWE using a Collocated Implicit method
     im.collocated_implicit(hold,x,dx,Courant,1)
+    
+    #Solve SWE using a Staggered-Grid method
     st.staggeredgrid(hold,x,dx,Courant,1)
     
     

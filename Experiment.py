@@ -8,7 +8,6 @@ Created on Tue Nov 14 16:45:41 2017
 import numpy
 import math
 import matplotlib.pyplot as plt
-import ManuelSantos_SWE as ms
 
 
 

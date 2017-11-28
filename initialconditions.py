@@ -15,7 +15,7 @@ def initialcondition(x,m):
     "a squared sine function. For m=4, the initial condition is the sine bell."
     "For this study, the initial condition for u is taken to be 0 everywhere."
     if m==1:#Squarewave initial condition
-        hold=squareWave(x,0.45,0.55)
+        hold=squareWave(x,0,0.45,0.55)
         return hold
     if m==2:#Sine-profile initial condition
         hold=np.sin(ppi*x)

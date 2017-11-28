@@ -9,10 +9,10 @@ Created on Mon Nov 27 22:45:58 2017
 import numpy as np
 
 def squareWave(x,t,alpha,beta):
-    "A square wave as a function of position, x, which is 1 between alpha"
-    "and beta and zero elsewhere. The initialisation is conservative so"
-    "that each phi contains the correct quantity integrated over a region"
-    "a distance dx/2 either side of x"
+    "This is the function that gives the solution, h, to the SWE where an"
+    "initial square wave function has been considered. This is, given the"
+    "square function at time 0, squareWave computes the state of the wave at"
+    "time t."
     
     phi = np.zeros_like(x)
     
@@ -25,12 +25,7 @@ def squareWave(x,t,alpha,beta):
         xw = x[j] - 0.5*dx
         xe = x[j] + 0.5*dx
         
-        #integral quantity of phi
+        #Analytical form of h
         phi[j] = 0.5*max((min(beta, xe-t) - max(alpha, xw-t))/dx, 0) + 0.5*max((min(beta, xe + t) - max(alpha, xw + t))/dx, 0)
 
     return phi
-
-x=np.linspace(0,1,100)
-t=0.2
-phi=squareWave(x,t,0.45,0.55)
-plt.plot(x,phi)
