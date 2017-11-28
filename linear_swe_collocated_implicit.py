@@ -10,16 +10,20 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 from scipy import linalg
+import OtherFunctions as of
+import Experiment as ex
 
-
-def collocated_implicit(hold,c,T=1):
+def collocated_implicit(hold,x,dx,c,T=1):
     
+    nx=len(x)
     uold=np.zeros(nx)
     u=uold.copy()
+    h=hold.copy()
     dt=c*dx
     t = np.arange(0.,T,dt)
     nt=len(t)
     
+    errorh=np.zeros(nt)
     
     #circ_vector is the vector that will generate the Toeplitz matrix
     circ_vector=np.zeros(nx)
@@ -63,8 +67,14 @@ def collocated_implicit(hold,c,T=1):
         hold=h.copy()
         uold=u.copy()
         
+#       L2 error for each timestep
+        analytic_h=ex.analytic_sqsin(x,t[i])
+        errorh[i]=of.l2ErrorNorm(h,analytic_h)
+        
         
     plt.plot(x, h, label='h=1')
     plt.plot(x, u, label='u=1')
     plt.legend()
     plt.show()
+    
+    plt.plot(t,errorh,label='Error')

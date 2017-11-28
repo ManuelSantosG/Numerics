@@ -6,6 +6,7 @@ Created on Mon Nov 27 13:26:32 2017
 @author: ms5717
 """
 import numpy as np
+import Experiment as ex
 
 def l2ErrorNorm(phi, phiExact):
     "Calculates the l2 error norm (RMS error) of phi in comparison to"

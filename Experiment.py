@@ -10,19 +10,24 @@ import math
 import matplotlib.pyplot as plt
 import ManuelSantos_SWE as ms
 
-hold=ms.initialcondition(3)
-h=hold.copy()
 
-x = np.arange(0.,1.,dx)
 
-ms.collocated_explicit(hold,0.1,1)
-
-def analytic_sqsin(x,t,m):
-    for i in range(0,nt):
-        hsol=0.5*(numpy.sin(ppi*x - ppi*t[i])**2) + 0.5*(numpy.sin(ppi*x + ppi*t[i])**2)
-        usol=0.5*(numpy.sin(ppi*x - ppi*t[i])**2) - 0.5*(numpy.sin(ppi*x + ppi*t[i])**2)
-        plt.plot(x,usol,label='u')
-        plt.plot(x,hsol,label='h')
-        plt.legend()
-        plt.show()
+def analytic_sqsin(x,t):
+    ppi=numpy.pi
+    hsol=0.5*(numpy.sin(ppi*x - ppi*t)**2) + 0.5*(numpy.sin(ppi*x + ppi*t)**2)
+    usol=0.5*(numpy.sin(ppi*x - ppi*t)**2) - 0.5*(numpy.sin(ppi*x + ppi*t)**2)
+#    plt.plot(x,usol,label='u')
+#    plt.plot(x,hsol,label='h')
+#    plt.legend()
+#    plt.show()
     
+    return hsol
+    
+
+def analytic_sin(x,t):
+    hsol=0.5*(numpy.sin(ppi*x - ppi*t)) + 0.5*(numpy.sin(ppi*x + ppi*t))
+    usol=0.5*(numpy.sin(ppi*x - ppi*t)) - 0.5*(numpy.sin(ppi*x + ppi*t))
+    plt.plot(x,usol,label='u')
+    plt.plot(x,hsol,label='h')
+    plt.legend()
+    plt.show()

@@ -6,19 +6,24 @@ Created on Thu Nov  9 10:39:00 2017
 @author: ms5717
 """
 
-import numpy
+import numpy as np
 import math
 import matplotlib.pyplot as plt
 from scipy import linalg
+import OtherFunctions as of
+import Experiment as ex
 
-def staggeredgrid(hold,c,T=1):
+def staggeredgrid(hold,x,dx,c,T=1):
     
+    nx=len(x)
     uold=np.zeros(nx)
     u=uold.copy()
+    h=hold.copy()
     dt=c*dx
     t = np.arange(0.,T,dt)
     nt=len(t)
     
+    errorh=np.zeros(nt)
     
     p=1
     for i in range(1,nt):
@@ -38,13 +43,22 @@ def staggeredgrid(hold,c,T=1):
         
         p+=1
         if p==np.floor(nt/4):
-            plt.plot(x, h, label='h'+str(np.round(dt*i,2)))
-            plt.plot(x, u, label='u'+str(np.round(dt*i,2)))
+            plt.plot(x, h, label='h(x,'+str(np.round(dt*i,2))+')')
+            plt.plot(x, u, label='u(x,'+str(np.round(dt*i,2))+')')
             plt.legend()
             plt.show()
             p=1
     
-    plt.plot(x, h, label='h')
-    plt.plot(x, u, label='u')
+#    L2 error for each timestep
+        analytic_h=ex.analytic_sqsin(x,t[i])
+        errorh[i]=of.l2ErrorNorm(h,analytic_h)
+        
+    
+    plt.plot(x, h, label='h(x,1)')
+    plt.plot(x, u, label='u(x,1)')
     plt.legend()
     plt.show()
+    
+    plt.plot(t,errorh,label='Error')
+    
+    
