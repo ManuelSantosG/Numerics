@@ -29,6 +29,7 @@ def maincode(Courant):
     
     plt.plot(x,h,label='h(x,0)')
     plt.plot(x,np.zeros(nx),label='u(x,0)')
+    plt.title('Initial Conditions')
     plt.legend()
     plt.show()
     
