@@ -16,6 +16,7 @@ import swe_staggered as st
 import OtherFunctions as of
 import Experiment as ex
 
+#Run this code to get a default output
 
 def maincode(nx,Courant):
     "maincode() runs different methods to solve the Shallow Water Equations"
@@ -46,4 +47,6 @@ def maincode(nx,Courant):
     #Solve SWE using a Staggered-Grid method
     st.staggeredgrid(hold,x,dx,Courant,1)
     
-    
+
+
+maincode(100,0.1)
