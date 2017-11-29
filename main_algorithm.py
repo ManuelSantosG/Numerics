@@ -48,5 +48,4 @@ def maincode(nx,Courant):
     st.staggeredgrid(hold,x,dx,Courant,1)
     
 
-
 maincode(100,0.1)
