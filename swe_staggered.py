@@ -107,8 +107,8 @@ def staggeredgrid(hold,x,dx,c,T,f):
         #   Conservation of mass   
             Masst[i]=of.Mass(u,dx)+of.Mass(h,dx)
         
-    plt.plot(x, h, label='h(x,1)')
-    plt.plot(x, u, label='u(x,1)')
+    plt.plot(x, h, label='h(x,T)')
+    plt.plot(x, u, label='u(x,T)')
     plt.title('Staggered-Grid Approximation')
     plt.legend()
     plt.show()

@@ -88,8 +88,8 @@ def collocated_implicit(hold,x,dx,c,T=1):
         Masst[i]=of.Mass(u,dx)+of.Mass(h,dx)
         
     
-    plt.plot(x, h, label='h(x,1)')
-    plt.plot(x, u, label='u(x,1)')
+    plt.plot(x, h, label='h(x,T)')
+    plt.plot(x, u, label='u(x,T)')
     plt.title('Collocated Implicit method')
     plt.legend()
     plt.show()

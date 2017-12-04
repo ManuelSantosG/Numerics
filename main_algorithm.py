@@ -42,17 +42,17 @@ def maincode(nx,Courant):
     
     #Solve SWE using a Collocated Explicit method
     #In the final argument type True to add forcing, False not to add any forcing.
-#    co.collocated_explicit(hold,x,dx,Courant,1,True)
+    co.collocated_explicit(hold,x,dx,Courant,1,True)
     
     #Solve SWE using a Collocated Implicit method
-    im.collocated_implicit(hold,x,dx,Courant,0.5)
+    im.collocated_implicit(hold,x,dx,Courant,1)
     
     #Solve SWE using a Staggered-Grid method
     #In the final argument type True to add forcing, False not to add any forcing.
-#    st.staggeredgrid(hold,x,dx,Courant,1,False)
+    st.staggeredgrid(hold,x,dx,Courant,1,False)
     
     
 #    The following line execute a program that produces the dispersion relations.
     drr.dispersion_relation(Courant)
 
-maincode(100,10)
+maincode(100,0.1)
