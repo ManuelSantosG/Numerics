@@ -95,9 +95,9 @@ def collocated_implicit(hold,x,dx,c,T=1):
     plt.show()
     
     plt.plot(t,errorh,label='Error')
-    plt.title('L2 error of the Collocated Implicit method')
+    plt.title(str(nx)+' grid points')
     plt.show()
     
     plt.plot(t,Masst,label='Mass')
-    plt.title('Total mass evolution, Collocated Implicit method')
+    plt.title('c=1.9')
     plt.show()
