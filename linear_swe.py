@@ -73,8 +73,8 @@ def collocated_explicit(hold,x,dx,c,T,f):
             #    Total mass at each timestep  
             Masst[i]=of.Mass(u,dx)+of.Mass(h,dx)
         
-        if f==False:
-                    p=1 #This number will be used to produce plots (see below).
+    if f==False:
+        p=1 #This number will be used to produce plots (see below).
         for i in range(0,nt):#Iteration of the Collocated Explicit method over timesteps.
             for j in range(1,nx-1):#Iteration over the interior gridpoints to update u.
                 u[j]=uold[j]-0.5*c*(hold[j+1] - hold[j-1])
@@ -96,8 +96,8 @@ def collocated_explicit(hold,x,dx,c,T,f):
             
             p+=1 #p increases its value until the condition below is satisfied and then the code produces a graph.
             if p==np.floor(nt/4):
-                plt.plot(x, 0.1*h, label='h(x,'+str(np.round(dt*i,2))+')')
-                plt.plot(x, 0.1*h, label='u(x,'+str(np.round(dt*i,2))+')')
+                plt.plot(x, h, label='h(x,'+str(np.round(dt*i,2))+')')
+                plt.plot(x, u, label='u(x,'+str(np.round(dt*i,2))+')')
                 plt.title('Collocated Explicit method')
                 plt.legend()
                 plt.show()
