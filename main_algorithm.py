@@ -30,8 +30,6 @@ def maincode(nx,Courant):
     
     hold=ic.initialcondition(x,3)
     h=hold.copy()
-#    hold=np.zeros(nx)
-#    h=hold.copy()
     
     #Plot intial condition
     plt.plot(x,h,label='h(x,0)')
@@ -42,14 +40,14 @@ def maincode(nx,Courant):
     
     #Solve SWE using a Collocated Explicit method
     #In the final argument type True to add forcing, False not to add any forcing.
-    co.collocated_explicit(hold,x,dx,Courant,1,False)
+    co.collocated_explicit(hold,x,dx,Courant,1,True)
     
     #Solve SWE using a Collocated Implicit method
-#    im.collocated_implicit(hold,x,dx,Courant,1)
+    im.collocated_implicit(hold,x,dx,Courant,1)
     
     #Solve SWE using a Staggered-Grid method
     #In the final argument type True to add forcing, False not to add any forcing.
-#    st.staggeredgrid(hold,x,dx,Courant,1,False)
+    st.staggeredgrid(hold,x,dx,Courant,1,False)
     
     
 #    The following line execute a program that produces the dispersion relations.
