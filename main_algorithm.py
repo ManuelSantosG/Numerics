@@ -15,6 +15,7 @@ import linear_swe_collocated_implicit as im
 import swe_staggered as st
 import OtherFunctions as of
 import Experiment as ex
+import dispersion_relation as drr
 
 #Run this code to get a default output
 
@@ -30,7 +31,6 @@ def maincode(nx,Courant):
     hold=ic.initialcondition(x,3)
     h=hold.copy()
     
-    
     #Plot intial condition
     plt.plot(x,h,label='h(x,0)')
     plt.plot(x,np.zeros(nx),label='u(x,0)')
@@ -39,13 +39,18 @@ def maincode(nx,Courant):
     plt.show()
     
     #Solve SWE using a Collocated Explicit method
-    co.collocated_explicit(hold,x,dx,Courant,1)
+    #In the final argument type True to add forcing, False not to add any forcing.
+    co.collocated_explicit(hold,x,dx,Courant,1,True)
     
     #Solve SWE using a Collocated Implicit method
     im.collocated_implicit(hold,x,dx,Courant,1)
     
     #Solve SWE using a Staggered-Grid method
-    st.staggeredgrid(hold,x,dx,Courant,1)
+    #In the final argument type True to add forcing, False not to add any forcing.
+    st.staggeredgrid(hold,x,dx,Courant,1,False)
     
+    
+#    The following line execute a program that produces the dispersion relations.
+    drr.dispersion_relation(Courant)
 
 maincode(100,0.1)

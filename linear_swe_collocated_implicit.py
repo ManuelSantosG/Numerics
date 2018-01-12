@@ -88,16 +88,16 @@ def collocated_implicit(hold,x,dx,c,T=1):
         Masst[i]=of.Mass(u,dx)+of.Mass(h,dx)
         
     
-    plt.plot(x, h, label='h(x,1)')
-    plt.plot(x, u, label='u(x,1)')
+    plt.plot(x, h, label='h(x,T)')
+    plt.plot(x, u, label='u(x,T)')
     plt.title('Collocated Implicit method')
     plt.legend()
     plt.show()
     
     plt.plot(t,errorh,label='Error')
-    plt.title('L2 error of the Collocated Implicit method')
+    plt.title(str(nx)+' grid points')
     plt.show()
     
     plt.plot(t,Masst,label='Mass')
-    plt.title('Total mass evolution, Collocated Implicit method')
+    plt.title('c=1.9')
     plt.show()

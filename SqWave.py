@@ -29,3 +29,5 @@ def squareWave(x,t,alpha,beta):
         phi[j] = 0.5*max((min(beta, xe-t) - max(alpha, xw-t))/dx, 0) + 0.5*max((min(beta, xe + t) - max(alpha, xw + t))/dx, 0)
 
     return phi
+
+
