@@ -1,0 +1,21 @@
+Good start but it looks as if you have a long way to go.
+
+There is a typo in equation 5. There should be a u_n on the LHS.
+
+There is a type on equation 6. You have used \partial t rather than \Delta t
+
+You should describe the problems that you expect with the co-located scheme and refer to the dispersion relation. 
+
+You need to describe your simulations in sufficient detail so that someone else can reproduce your results with their code but without reference to your code. So, for example you need to say the resolution, boundary conditions, time-step etc.
+
+You cannot assume that the reader knows what Eigtool or the interface window is. 
+
+In figure 1, your legends "0.25" and "0.75" are not helpful as legends.
+
+You are using implicit schemes so you should check that they are stable for a Courant number >>1.
+
+Your definition of the staggered scheme is not correct.
+
+The 3 schemes; colocated implicit and explicit and staggered explicit are plenty for this report. If the finite volume scheme is not working, I would recommend not pursuing this. Better to do a good job with the other schemes. Also, finite volume doesn't make a lot of sense for linearised wave equations as finite volume is really about transport.
+
+

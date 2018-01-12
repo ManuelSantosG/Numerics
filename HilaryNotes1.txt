@@ -1,0 +1,55 @@
+Hilary's comments on swe_staggered.py
+
+Put comments at the top describing what is in the function.
+
+Use functions to avoid code dumplicatin between your different files.
+
+Avoid code duplication.
+
+Stick to the rules at:
+http://www.met.reading.ac.uk/~sws02hs/teaching/PDEsNumerics/code.pdf
+
+You don't need to store all time values in an array. 
+
+You need more comments. For example, I assume that the line:
+for i in range(1,nt-1):
+Should have a comment above it saying:
+# Loop over all time-steps
+or something similar
+
+Why are you only doing nt-2 time-steps. 
+
+Your method of declaring x:
+    x=numpy.arange(0,nx,1)
+    dx=1/nx
+    x=dx*x
+is strange. Why not just do:
+    dx = 1./nx
+    x = numpy.arange(0.,1.,dx)
+
+As this is a staggered algorithm, you really need another array for the x-locations for the u positions.
+
+I assume you know that your x array does not include the end point. This is a good way to do periodic boundary conditions. You can then loop over all points and do, for example:
+
+h[j]=hold[j]-c*(u[j]-u[(j-1)%nx])
+
+Your comment:
+#The only point of conflict is the end of the interval, whose value depends on hold[nx]=hold[0]
+is incorrect. You have nx points going from 0 to 1-dx so you do not have any duplicated points. Look at the documentation for arange
+
+If you are using periodic boundary conditions you should really use periodic initial conditions. Why are you using sin(sin(pi x)) for your initial conditions? This seems strange
+
+I am running for fewer time-steps. My impression is that the error in your code is due to the inconsistent way that you are treating the periodic boundary conditions. Try replacing nx=100 with nx=10 and work out exactly where every point should be in comparison to where it is and how each point is numbered. Also, do you know that:
+
+for i in range(1,9):
+...     print(i)
+gives
+1
+2
+3
+4
+5
+6
+7
+8
+I assume that this is not what you intended.

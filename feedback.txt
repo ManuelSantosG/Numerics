@@ -1,0 +1,41 @@
+You have done some terrific work but your report reveals many misunderstandings. You should ask more questions to check your understanding. You also should have sought help about the suspected bugs in your code before submission. 
+
+15/25
+
+Good selection of schemes.
+
+Good choice of experiments. 
+
+Terrific to find the analytic solution of the SWE.
+
+I am not sure about your conserved quantity since h and u can have different dimensions. For the same reason there is a problem with equation 7. I assume that both need some scaling using g and H.
+
+From equation 10, u should be identically zero at t=0 and t=0.5 but u is not identically zero at t=0.5 in figure 1b.
+
+You should say that equation 12 is for h, not for u. 
+
+You haven't defined how you have calculated the L2 error and if it uses u or h.
+
+It took me a while to realise that the graphs in figure 4 are a function of time. 
+
+With your chosen test case, figure 4 reveals total error cancellation at t=0.5 and t=1. This should prompt you to consider different initial conditions. 
+
+Figure 5b should show exponential error growth. Using a log-scale for the y-axis should show this. 
+
+Neutral stability implies that energy is conserved. Mass should be conserved regardless of the stability. 
+
+Diffusion shoud not impact mass conservation. 
+
+Mass should be conserved exactly. Figure 6 shows that you have a bug. This is likely to be due to boundary conditions.
+
+It would be better to define all numerical methods at the beginning. Then a results chapter can compare the numerical methods. This would make the report more compact. 
+
+Figure 7b should compare the numerical with the analytic solution. Otherwise it is not clear that the behaviour is erroneous. 
+
+Figure 10 suggests a bug. 
+
+Figure 14 suttests a bug.
+
+Equations 26 and 27 are not correct.
+
+
