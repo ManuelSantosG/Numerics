@@ -94,7 +94,7 @@ def staggeredgrid(hold,x,dx,c,T,f):
             p+=1 #p increases its value until the condition below is satisfied and then the code produces a graph.
             if p==np.floor(nt/4):
                 plt.plot(x, 0.1*h, label='u(x,'+str(np.round(dt*i,2))+')')
-    #            plt.plot(x, 0.1*u, label='h(x,'+str(np.round(dt*i,2))+')')
+                plt.plot(x, 0.1*u, label='h(x,'+str(np.round(dt*i,2))+')')
                 plt.title('Staggered-Grid Approximation')
                 plt.legend()
                 plt.show()

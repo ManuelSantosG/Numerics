@@ -28,7 +28,7 @@ def maincode(nx,Courant):
     dx = 1./nx #Define space-step.
     x = np.arange(0.,1.,dx) #Define space grid.
     
-    hold=ic.initialcondition(x,3)
+    hold=ic.initialcondition(x,4)
     h=hold.copy()
     
     #Plot intial condition
@@ -40,10 +40,10 @@ def maincode(nx,Courant):
     
     #Solve SWE using a Collocated Explicit method
     #In the final argument type True to add forcing, False not to add any forcing.
-    co.collocated_explicit(hold,x,dx,Courant,1,True)
+#    co.collocated_explicit(hold,x,dx,Courant,1,True)
     
     #Solve SWE using a Collocated Implicit method
-    im.collocated_implicit(hold,x,dx,Courant,1)
+#    im.collocated_implicit(hold,x,dx,Courant,1)
     
     #Solve SWE using a Staggered-Grid method
     #In the final argument type True to add forcing, False not to add any forcing.

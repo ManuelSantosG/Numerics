@@ -29,8 +29,10 @@ def initialcondition(x,m):
         nx=len(x)
         hold=np.zeros(nx)
         # n1 and n2 are to identify interior points in between which the function will be nonzero.
-        n1=math.floor(nx/4)
-        n2=math.floor(3*nx/4)
-        hold[n1:n2] = np.sin(2*np.pi*(x[n1:n2]-0.25*np.ones(n2-n1)))**2
+#        n1=math.floor(nx/4)
+#        n2=math.floor(3*nx/4)
+        n1=45
+        n2=55
+        hold[n1:n2] = np.sin(5*2*np.pi*(x[n1:n2] - 0.45*np.ones(n2-n1)))**2
         return hold
     
